@@ -57,8 +57,9 @@ def reset():
     global start_time, typing_blocks
     start_time = 60
     timer_label.config(text='When you ready start typing')
-    random.shuffle(typing_blocks)
-    typing_text.insert('1.0', typing_blocks[0])
+    typing_text.config(state='normal')
+    typing_text.insert('1.0', random.choice(typing_blocks))
+    typing_text.config(state='disable')
     user_typing_text.config(state='normal')
     user_typing_text.delete('1.0', END)
     results_label.config(text='Results')
@@ -79,8 +80,7 @@ timer_label = ttk.Label(frm, text='When you ready start typing', font=FONT)
 timer_label.grid(row=0, column=0)
 
 typing_text = Text(frm, width=80, height=6, wrap='word' ,font=TEXT_FONT, foreground='green')
-random.shuffle(typing_blocks)
-typing_text.insert('1.0', typing_blocks[0])
+typing_text.insert('1.0', random.choice(typing_blocks))
 typing_text.config( state='disabled')
 typing_text.grid(row=1, column=0)
 
@@ -94,7 +94,7 @@ results_label = ttk.Label(frm, text='Results', font=FONT, padding='10 10')
 results_label.grid(row=4, column=0)
 
 style = ttk.Style()
-style.configure('my.TButton', font=FONT,padding='5 5')
+style.configure('my.TButton', font=FONT, padding='5 5')
 reset_button = ttk.Button(frm, text='Reset', style='my.TButton', command=reset)
 reset_button.grid(row=5, column=0)
 
